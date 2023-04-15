@@ -46,7 +46,6 @@ class Database():
         print(f'Deleted post with ID: {id}')
     
     def delete_usr(self, email):
-        sql = 'DELETE FROM users WHERE email=?'
         cursor = self.conn.cursor()
         cursor.execute(f'DELETE FROM users WHERE email={email}')
         self.conn.commit()
@@ -71,10 +70,16 @@ class Database():
         cur.execute("SELECT * FROM users")
         rows = cur.fetchall()
         return rows
+    
+    def select_all_posts(self):
+        cur = self.conn.cursor()
+        cur.execute("SELECT * FROM daisy_hill")
+        rows = cur.fetchall()
+        return rows
 
     def select_one_user(self, email):
         cur = self.conn.cursor()
-        cur.execute(f"SELECT phone_number FROM users WHERE {email}")
+        cur.execute(f"SELECT phone_number,community FROM users WHERE email={email}")
         usr_num = cur.fetchone()
         return usr_num
 
@@ -85,6 +90,7 @@ if __name__ == '__main__':
     #usr_email = "'SampelUser@asdf.com'"
     #db.delete_usr(usr_email)
 
+    print(db.select_all_posts())
 
     '''users_table = """ CREATE TABLE IF NOT EXISTS users (
                         email text PRIMARY KEY,
