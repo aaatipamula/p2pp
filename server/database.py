@@ -51,16 +51,39 @@ class Database():
         cursor.execute(f'DELETE FROM users WHERE email={email}')
         self.conn.commit()
         print(f'Deleted post with email: {email}')
+    
+    def delete_all_users(self):
+        sql = 'DELETE FROM users'
+        cur = self.conn.cursor()
+        cur.execute(sql)
+        self.con.commit()
+        print('All users deleted')
+    
+    def delete_all_posts(self):
+        sql = 'DELETE FROM daisy_hill'
+        cur = self.conn.cursor()
+        cur.execute(sql)
+        self.con.commit()
+        print('All posts deleted')
+    
+    def select_all_users(self):
+        cur = self.conn.cursor()
+        cur.execute("SELECT * FROM users")
+        rows = cur.fetchall()
+        return rows
+
+    def select_one_user(self, email):
+        cur = self.conn.cursor()
+        cur.execute(f"SELECT phone_number FROM users WHERE {email}")
+        usr_num = cur.fetchone()
+        return usr_num
 
 if __name__ == '__main__':
     db_file_path = r"C:\Users\arnav\PycharmProjects\spare\database\database.db"
     db = Database(db_file_path)
-    #user = ('SampUser@asdf.com', '4/15/23 3:14', 80, 'daisy_hill', 'OMARIO')
-    #db.create_user(user)
+    
     #usr_email = "'SampelUser@asdf.com'"
     #db.delete_usr(usr_email)
-    user_id = 1
-    db.delete_post(user_id)
 
 
     '''users_table = """ CREATE TABLE IF NOT EXISTS users (
