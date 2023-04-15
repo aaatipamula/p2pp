@@ -10,6 +10,7 @@ class Database():
             print(sqlite3.version)
         except Error as e:
             print(e)
+
     def create_table(self, table_info):
         try:
             cursor = self.conn.cursor()
@@ -46,30 +47,30 @@ class Database():
         print(f'Deleted post with ID: {id}')
     
     def delete_usr(self, email):
-        sql = 'DELETE FROM users WHERE email=?'
         cursor = self.conn.cursor()
         cursor.execute(f'DELETE FROM users WHERE email={email}')
         self.conn.commit()
         print(f'Deleted post with email: {email}')
 
 if __name__ == '__main__':
-    db_file_path = r"C:\Users\arnav\PycharmProjects\spare\database\database.db"
-    db = Database(db_file_path)
+    db_file_path = r"./database/database.db"
+    # db = Database(db_file_path)
     #user = ('SampUser@asdf.com', '4/15/23 3:14', 80, 'daisy_hill', 'OMARIO')
     #db.create_user(user)
     #usr_email = "'SampelUser@asdf.com'"
     #db.delete_usr(usr_email)
-    user_id = 1
-    db.delete_post(user_id)
+    # user_id = 1
+    # db.delete_post(user_id)
 
 
-    '''users_table = """ CREATE TABLE IF NOT EXISTS users (
+    users_table = """ CREATE TABLE IF NOT EXISTS users (
                         email text PRIMARY KEY,
                         phone_number text NOT NULL,
                         credit_score integer NOT NULL,
                         community text NOT NULL,
                         name text NOT NULL
                     ); """
+
     daisy_hill = """ CREATE TABLE IF NOT EXISTS daisy_hill (
                         email text PRIMARY KEY,
                         time text NOT NULL,
@@ -78,5 +79,6 @@ if __name__ == '__main__':
                         type text NOT NULL,
                         tags text NOT NULL
                     );"""
+
     db.create_table(users_table)
-    db.create_table(daisy_hill)'''
+    db.create_table(daisy_hill)
