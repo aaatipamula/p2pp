@@ -51,6 +51,38 @@ class Database():
         cursor.execute(f'DELETE FROM users WHERE email={email}')
         self.conn.commit()
         print(f'Deleted post with email: {email}')
+    
+    def delete_all_users(self):
+        sql = 'DELETE FROM users'
+        cur = self.conn.cursor()
+        cur.execute(sql)
+        self.con.commit()
+        print('All users deleted')
+    
+    def delete_all_posts(self):
+        sql = 'DELETE FROM daisy_hill'
+        cur = self.conn.cursor()
+        cur.execute(sql)
+        self.con.commit()
+        print('All posts deleted')
+    
+    def select_all_users(self):
+        cur = self.conn.cursor()
+        cur.execute("SELECT * FROM users")
+        rows = cur.fetchall()
+        return rows
+    
+    def select_all_posts(self):
+        cur = self.conn.cursor()
+        cur.execute("SELECT * FROM daisy_hill")
+        rows = cur.fetchall()
+        return rows
+
+    def select_one_user(self, email):
+        cur = self.conn.cursor()
+        cur.execute(f"SELECT phone_number,community FROM users WHERE email={email}")
+        usr_num = cur.fetchone()
+        return usr_num
 
 if __name__ == '__main__':
     db_file_path = r"./database/database.db"
@@ -62,6 +94,7 @@ if __name__ == '__main__':
     # user_id = 1
     # db.delete_post(user_id)
 
+    print(db.select_all_posts())
 
     users_table = """ CREATE TABLE IF NOT EXISTS users (
                         email text PRIMARY KEY,

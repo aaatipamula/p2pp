@@ -1,4 +1,4 @@
-<!-- TODO: add css, give delivery point of input data-->
+<!-- TODO: add css-->
 
 <!DOCTYPE html>
 <html>
@@ -20,16 +20,16 @@ Spare Signup
     Please fill out all fields to create a Spare account.
 </p>
 
-<form action="/action_page.php">
+<form action="/signup">
 
     <label for="email">Email:</label><br>
-    <input type="text" id="email" name="email" value=""><br><br>
+    <input type="email" id="email" name="email" value=Null required ><br><br>
     
     <label for="phone_num">Phone Number:</label><br>
-    <input type="text" id="phone_num" name="phone_num" value=""><br><br>
+    <input type="tel" id="phone_num" name="phone_num" value=Null pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required><br><br>
     
     <label for="">Name:</label><br>
-    <input type="text" id="name" name="name" value=""><br><br>
+    <input type="text" id="Name" name="name" value=Null required pattern="^([A-Za-z]+[,.]?[ ]?|[A-Za-z]+['-]?)+$" ><br><br>
     
 
     <input type="submit" value="Sign up">
