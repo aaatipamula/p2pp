@@ -1,29 +1,31 @@
-#from datetime import datetime
-#timestamp = datetime.now().strftime("%H_%M_%m_%d_%Y")
-#print(timestamp)
+from datetime import datetime
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
-def send_email(sender_email):
-    # creates SMTP session
-    s = smtplib.SMTP('smtp.gmail.com', 587)
-    # start TLS for security
-    s.starttls()
- 
-    # Authentication
-    s.login('sparefoodforum@gmail.com', r'm%g*6pHabm3@hD$')
- 
-    # message to be sent
-    message = "Testing123"
- 
-    # sending the mail
-    s.sendmail("sender_email_id", "receiver_email_id", message)
-    # terminating the session
-    s.quit()
+def send_email(recipient_email, subject, body):
+    msg = MIMEMultipart()
+    msg['From'] = 'sparefoodforum@gmail.com'
+    msg['To'] = recipient_email
+    msg['Subject'] = subject
 
-# Example usage:
-smtp_port = 465 # Use the appropriate SMTP port for your email provider (e.g., 587 for TLS)
-body = 'This is a test email sent using Python.'
+    msg.attach(MIMEText(body, 'plain'))
 
-send_email(sender_email)
+    try:
+        with smtplib.SMTP_SSL('smtp.gmail.com', 465) as server:
+            server.ehlo()
+            server.login('sparefoodforum@gmail.com', r'igngtfhbqwgijcde')
+            server.sendmail('sparefoodforum@gmail.com', recipient_email, msg.as_string())
+        print("Email sent successfully")
+    except Exception as e:
+        print("Error occurred while sending email:", e)
+
+def get_time():
+    return datetime.now().strftime("%H_%M_%m_%d_%Y")
+
+if __name__ == '__main__':
+    timestamp = datetime.now().strftime("%H_%M_%m_%d_%Y")
+    recipient_email = 'arnavjain20042@gmail.com'
+    subject = 'Second Test Email'
+    body = 'This is a test email sent using Python. It was sent at ' + timestamp
+    send_email(recipient_email, subject, body)
