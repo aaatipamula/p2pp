@@ -83,6 +83,13 @@ class Database():
         usr_num = cur.fetchone()
         return usr_num
 
+    def get_email_to_id(self, email):
+        cur = self.conn.cursor()
+        cur.execute("SELECT * FROM users")
+        rows = cur.fetchall()
+        for index, row in enumerate(rows):
+            if row[0] == email:
+                return index+1
 if __name__ == '__main__':
     db_file_path = r"C:\Users\arnav\PycharmProjects\spare\database\database.db"
     db = Database(db_file_path)
@@ -90,7 +97,7 @@ if __name__ == '__main__':
     #usr_email = "'SampelUser@asdf.com'"
     #db.delete_usr(usr_email)
 
-    print(db.select_all_posts())
+    print(db.get_email_to_id('SampUser@asdf.com'))
 
     '''users_table = """ CREATE TABLE IF NOT EXISTS users (
                         email text PRIMARY KEY,
