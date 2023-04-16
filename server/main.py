@@ -42,7 +42,7 @@ def validateLogin():
     user = db.select_one_user(email)
 
     if user is None or not user[0] == phone:
-        return render_template('retry_login.html'), 404
+        return render_template('retry_login.html', email=email, phone=phone), 404
     else:
         resp = make_response(redirect(url_for('feed', community=user[1])))
         resp.set_cookie('email', email)
