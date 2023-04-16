@@ -80,10 +80,17 @@ class Database():
 
     def select_one_user(self, email):
         cur = self.conn.cursor()
-        cur.execute("SELECT phone_number,community FROM users WHERE email=?;", (email,))
+        cur.execute("SELECT phone_number,community,name FROM users WHERE email=?;", (email,))
         usr_num = cur.fetchone()
         return usr_num
 
+    def get_email_to_id(self, email):
+        cur = self.conn.cursor()
+        cur.execute("SELECT * FROM users")
+        rows = cur.fetchall()
+        for index, row in enumerate(rows):
+            if row[0] == email:
+                return index+1
 if __name__ == '__main__':
     db_file_path = r"./database.db"
     db = Database(db_file_path)
@@ -94,7 +101,9 @@ if __name__ == '__main__':
     # user_id = 1
     # db.delete_post(user_id)
 
-    users_table = """ CREATE TABLE IF NOT EXISTS users (
+    print(db.select_all_posts())
+
+    '''users_table = """ CREATE TABLE IF NOT EXISTS users (
                         email text PRIMARY KEY,
                         phone_number text NOT NULL,
                         credit_score integer NOT NULL,
@@ -119,3 +128,4 @@ if __name__ == '__main__':
     
     thing = db.select_one_user('SampUser@asdf.com')
     print(thing)
+'''
