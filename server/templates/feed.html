@@ -1,16 +1,30 @@
 <!DOCTYPE html>
 <head>
   <title>Spare</title>
+  <style>
+
+  .post {
+    border: 5px solid black;
+    margin: 15px;
+  }
+
+  .postpage {
+    border: 5px solid black;
+    padding: 10px;
+    margin: 15px;
+  }
+
+  </style>
 </head>
 <body>
   <h1>{{ community }}</h1>
-  <a href="/static/post_page.html">Post Items</a>
+  <a class="postpage" href="/static/post_page.html">Post Items</a>
   <div>
     {% for name, time, item, post_type, tags in content %}
-    <div>
+    <div class="post">
       <h3>{{ item }}</h3>
+      <p>{{ name }}</p>
       <p>{{ time }}</p>
-      <p>{{ post_type }}</p>
       <p>{{ post_type }}</p>
       <p>{{ tags }}</p>
     </div>

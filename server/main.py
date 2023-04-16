@@ -23,12 +23,12 @@ def feed():
     posts = db.select_all_posts()
     content = []
 
-    for _, time, duration, item, post_type, tags in posts:
-        name = db.select_one_user()[2]
+    for email, time, duration, item, post_type, tags in posts:
+        name = db.select_one_user(email)[2]
 
-        hour, minute, month, day, year = [int(x) for x in duration.split('_')]
+        hour, minute, month, day, year = [int(x) for x in time.split('_')]
         _time = datetime(year, month, day, hour, minute) + timedelta(minutes=duration)
-        time = _time.strftime("%h:%m %p %-m/%d/%Y")
+        time = _time.strftime("%l:%m %p %-m/%d/%Y")
 
         content.append((name, time, item, post_type, tags))
 
