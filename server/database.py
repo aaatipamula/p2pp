@@ -80,7 +80,7 @@ class Database():
 
     def select_one_user(self, email):
         cur = self.conn.cursor()
-        cur.execute("SELECT phone_number,community FROM users WHERE email=?;", (email,))
+        cur.execute("SELECT phone_number,community,name FROM users WHERE email=?;", (email,))
         usr_num = cur.fetchone()
         return usr_num
 

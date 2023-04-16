@@ -3,12 +3,17 @@
   <title>Spare</title>
 </head>
 <body>
+  <h1>{{ community }}</h1>
   <div>
-    <ul>
-    {% for thing in content %}
-      <li> {{ thing }} </li>
+    {% for name, time, item, post_type, tags in content %}
+    <div>
+      <h3>{{ item }}</h3>
+      <p>{{ time }}</p>
+      <p>{{ post_type }}</p>
+      <p>{{ post_type }}</p>
+      <p>{{ tags }}</p>
+    </div>
     {% endfor %}
-    </ul>
   </div>
 </body>
 
