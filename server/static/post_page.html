@@ -1,0 +1,67 @@
+<!--   To-do : create the post site and the related toggles-->
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title> Make a Post</title>
+</head>
+
+
+<body>
+<h1>
+    Daisy Hill
+</h1>
+<br>
+<br>
+
+<form action= "/upload">
+
+    <label for= "Items:"> Items: </label><br>
+    <input type="text" id="Items" name="items"  required><br><br>
+
+    <p>Please select a duration for your post to stay active: </p>
+
+    <input type="radio" id="30 minutes" name="duration" value="30" required>
+    <label for="30 minutes"> 30 minutes </label><br>
+    <input type="radio" id="1 hour" name="duration" value="60" required>
+    <label for="1 hour"> 1 hour </label><br>
+    <input type="radio" id="2 hours" name="duration" value="120" required>
+    <label for="2 hours"> 2 hours </label><br>
+    <input type="radio" id="4 hours" name="duration" value="240" required>
+    <label for="4 hours"> 4 hour </label><br>
+    <input type="radio" id="8 hours" name="duration" value="480" required>
+    <label for="8 hours"> 8 hours </label><br>
+    <input type="radio" id="24 hours" name="duration" value="1440" required>
+    <label for="24 hours"> 24 hours </label><br>
+    <br>
+
+    <p>Please select a tag for your item</p>
+
+    <input type="radio" id="food" name="tags" value="food" required>
+    <label for="food"> Food </label><br>
+    <input type="radio" id="groceries" name="tags" value="groceries" required>
+    <label for="groceries"> Groceries </label><br>
+    <input type="radio" id="tools" name="tags" value="tools" required>
+    <label for="tools"> Tools </label><br>
+    <input type="radio" id="other" name="duration" value="other" required>
+    <label for="other"> Other </label><br>
+    <br>
+
+
+    <p>Please select your type of post</p>
+
+    <input type="radio" id="offer" name="type" value="offer" required>
+    <label for="offer"> Offer </label><br>
+    <input type="radio" id="want" name="type" value="want" required>
+    <label for="want"> Want </label><br>
+    <input type="radio" id="need" name="type" value="need" required>
+    <label for="need"> Need </label><br>
+    <br>
+
+    <input type="submit" value="Make a post">
+</form>
+
+
+</body>
+</html>
