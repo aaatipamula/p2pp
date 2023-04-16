@@ -4,6 +4,7 @@ from flask import Flask, render_template, request, url_for, redirect, make_respo
 from database import Database
 import os.path as path
 from sqlite3 import IntegrityError
+from email_testing import get_time, send_email
 
 app = Flask("spare")
 dbFile = path.join(__file__.replace('main.py', ''), 'database', 'database.db')
@@ -55,7 +56,10 @@ def validateSignup():
 
     try:
         db.create_user((email,phone,0,'daisy_hill',name))
-        return redirect(url_for('feed', community='daisy_hill'))
+        resp = make_response(redirect(url_for('feed', community='daisy_hill')))
+        resp.set_cookie('email', email)
+        return resp
+
     except IntegrityError: 
         return render_template('retry_signup.html'), 404
 
@@ -65,11 +69,11 @@ def uploadPost():
     duration = int(request.args.get('duration', ''))
     type_post = request.args.get('type', '')
     tags = request.args.get('tags', '')
-
     email = request.cookies.get('email')
+    time = get_time()
 
     if email is None:
         return 404
     else:
-        db.create_post((email, ))
-        return redirect(url_for())
+        db.create_post((email, time, duration, items, type_post, tags))
+        return redirect(url_for('feed', community='daisy_hill'))
