@@ -8,16 +8,18 @@ from email_testing import get_time, send_email
 
 app = Flask("spare")
 dbFile = path.join(__file__.replace('main.py', ''), 'database', 'database.db')
-dbFile = r"./database.db"
 db = Database(dbFile)
 
 @app.get("/")
 def index():
-    return redirect(url_for('static', filename='landing_page.html'))
+    # rename the static files and stuff.
+    return redirect(url_for('static', filename='index.html'))
 
-@app.get("/feed")
+@app.get("/user/feed")
 def feed():
     community = request.args.get('community', '')
+    # Make a converter for the different communities to display a nicer title.
+
     community = 'Daisy Hill'
 
     posts = db.select_all_posts()
@@ -34,7 +36,7 @@ def feed():
 
     return render_template('feed.html', content=content, community=community)
 
-@app.get("/login")
+@app.get("/user/login")
 def validateLogin():
     email = request.args.get('email', '')
     phone = request.args.get('phone_num', '')
@@ -42,13 +44,13 @@ def validateLogin():
     user = db.select_one_user(email)
 
     if user is None or not user[0] == phone:
-        return render_template('retry_login.html', email=email, phone=phone), 404
+        return render_template('retry_login.html', email=email, phone=phone), 401
     else:
         resp = make_response(redirect(url_for('feed', community=user[1])))
         resp.set_cookie('email', email)
         return resp
 
-@app.get("/signup")
+@app.get("/user/signup")
 def validateSignup():
     email  = request.args.get('email',"")
     phone = request.args.get('phone_num',"")
@@ -63,7 +65,7 @@ def validateSignup():
     except IntegrityError: 
         return render_template('retry_signup.html'), 404
 
-@app.get("/upload")
+@app.get("/posts/upload")
 def uploadPost():
     items = request.args.get('items', '')
     duration = int(request.args.get('duration', ''))
